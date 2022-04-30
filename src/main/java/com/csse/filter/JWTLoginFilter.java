@@ -67,7 +67,6 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         jsonObject.put("token",jwt);
         jsonObject.put("userId", userEntity.getId());
         response.getWriter().write(String.valueOf(jsonObject));
-
     }
 
     @Override

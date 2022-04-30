@@ -54,9 +54,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .loginPage("/login.html")
 //                .loginProcessingUrl("/login")
                 .failureUrl("/login/error")
-//                .successForwardUrl("/hello")
-                .defaultSuccessUrl("/")
+                .successForwardUrl("/hello.html")
+//                .defaultSuccessUrl("/hello.html")
                 .permitAll()
+                .and()
+                .headers().frameOptions().disable()
                 .and()
                 //不通过Session获取SecurityContext
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
