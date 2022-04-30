@@ -1,4 +1,4 @@
-package com.csse.domain;
+package com.csse.domain.vo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -18,7 +18,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("sys_user")
 public class UserVO implements Serializable {
     private static final long serialVersionUID = -40356785423868312L;
 

@@ -1,12 +1,11 @@
 package com.csse.controller;
 
-import com.csse.domain.ResponseResult;
-import com.csse.domain.User;
-import com.csse.domain.UserVO;
+import com.csse.domain.UserEntity;
+import com.csse.domain.vo.UserVO;
+import com.csse.result.RespBean;
 import com.csse.service.LoginUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,15 +21,11 @@ public class HelloController {
     }
 
     @PostMapping("/addUser")
-    public ResponseResult addUser(@RequestBody UserVO user1) {
-        User user = new User();
-        BeanUtils.copyProperties(user1, user);
-        loginUserService.addUser(user);
-        return new ResponseResult(200, "新增用户成功");
+    public RespBean addUser(@RequestBody UserVO user1) {
+        UserEntity userEntity = new UserEntity();
+        BeanUtils.copyProperties(user1, userEntity);
+        loginUserService.addUser(userEntity);
+        return RespBean.success();
     }
 
-    @GetMapping("/goods/toList")
-    public String test() {
-        return "hello";
-    }
 }

@@ -1,6 +1,6 @@
 package com.csse.exception;
 
-import com.csse.domain.RespBeanEnum;
+import com.csse.result.RespBeanEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

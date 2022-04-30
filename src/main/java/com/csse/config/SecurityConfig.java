@@ -51,10 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/login")
+//                .loginPage("/login.html")
+//                .loginProcessingUrl("/login")
                 .failureUrl("/login/error")
-                .successForwardUrl("/hello")
+//                .successForwardUrl("/hello")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 //不通过Session获取SecurityContext
@@ -70,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 //关闭csrf
-                .csrf().disable();
+                .csrf().disable().cors();
     }
 
     @Override

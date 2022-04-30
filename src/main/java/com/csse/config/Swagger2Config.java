@@ -38,11 +38,9 @@ public class Swagger2Config {
         return new ApiInfoBuilder()
                 .title("后台接口信息")
                 .description("请先配置token后,在调试接口")
-                .contact(new Contact("","",""))
+                .contact(new Contact("", "", ""))
                 .version("2.0")
                 .build();
     }
-
-
 
 }

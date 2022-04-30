@@ -1,42 +1,37 @@
 package com.csse.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.csse.domain.ResponseResult;
-import com.csse.domain.User;
+import com.csse.domain.UserEntity;
+import com.csse.exception.GlobalException;
 import com.csse.mapper.LoginUserMapper;
+import com.csse.result.RespBeanEnum;
 import com.csse.service.LoginUserService;
-import com.csse.utils.JwtUtil;
-import com.csse.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Objects;
 
 @Service
 public class LoginUserServiceImpl implements LoginUserService {
     @Autowired
     LoginUserMapper loginUserMapper;
-     @Autowired
+    @Autowired
     PasswordEncoder passwordEncoder;
+
     @Override
-    public void addUser(User user) {
-        String password = user.getPassword();
+    public void addUser(UserEntity userEntity) {
+        String password = userEntity.getPassword();
         String passwordEn = passwordEncoder.encode(password);
-        user.setPassword(passwordEn);
-        loginUserMapper.insert(user);
+        userEntity.setPassword(passwordEn);
+        if (loginUserMapper.insert(userEntity)!=1){
+            throw new GlobalException(RespBeanEnum.SAVE_USER_ERROR);
+        }
     }
 
     @Override
-    public User selectUser(String username) {
-        com.csse.domain.User user = loginUserMapper.selectOne(new QueryWrapper<User>().lambda()
-                .eq(com.csse.domain.User::getUserName, username));
-        return user;
+    public UserEntity selectUser(String username) {
+        UserEntity userEntity = loginUserMapper.selectOne(new QueryWrapper<UserEntity>().lambda()
+                .eq(UserEntity::getUserName, username));
+        return userEntity;
     }
 
 }
