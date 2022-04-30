@@ -11,15 +11,18 @@ import com.csse.result.RespBeanEnum;
 import com.csse.service.GoodsService;
 import com.csse.service.OrderService;
 import com.csse.service.SeckillService;
+import com.csse.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
+
 public class SeckillServiceImpl implements SeckillService {
     @Autowired
     private GoodsService goodsService;
@@ -33,6 +36,7 @@ public class SeckillServiceImpl implements SeckillService {
     private OrderMapper orderMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void doSeckill(UserEntity userEntity, Long goodsId) {
         String orderKey = "goods:" + goodsId + ",user:" + userEntity.getId();
         ValueOperations redis = redisTemplate.opsForValue();
@@ -48,7 +52,8 @@ public class SeckillServiceImpl implements SeckillService {
         }
         //3.秒杀商品减库存
         goodsEntity.setGoodsStock(goodsEntity.getGoodsStock() - 1);
-        int update = goodsMapper.update(goodsEntity, new UpdateWrapper<GoodsEntity>().eq("id", goodsId).gt("goodsStock", 0));
+        int update = goodsMapper.update(goodsEntity
+                , new UpdateWrapper<GoodsEntity>().eq("id", goodsId).gt("goodsStock", 0));
         if (update == 0) {
             throw new GlobalException(RespBeanEnum.EMPTY_STOCK);
         }
