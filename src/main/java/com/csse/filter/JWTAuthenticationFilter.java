@@ -55,7 +55,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isProtectedUrl(HttpServletRequest request) {
 
-        return pathMatcher.match("/hello1",request.getServletPath());
+        return pathMatcher.match("/goods/*",request.getServletPath());
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {

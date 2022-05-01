@@ -35,12 +35,15 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String username = null;
         String password = null;
-//        username = request.getHeader("username");
-//        password = request.getHeader("password");
+        username = request.getHeader("username");
+        password = request.getHeader("password");
         Map<String, String[]> parameterMap = request.getParameterMap();
-        //从表单中获取用户名和密码进行验证
-        username = parameterMap.get("username")[0];
-        password = parameterMap.get("password")[0];
+        if (username == null || password.length() == 0 || password.length() == 0) {
+            //从表单中获取用户名和密码进行验证
+            username = parameterMap.get("username")[0];
+            password = parameterMap.get("password")[0];
+        }
+
         return authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList()));
     }
@@ -64,7 +67,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         System.out.println("登录成功:" + jwt);
         response.setHeader("token", jwt);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("token",jwt);
+        jsonObject.put("token", jwt);
         jsonObject.put("userId", userEntity.getId());
         response.getWriter().write(String.valueOf(jsonObject));
     }

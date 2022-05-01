@@ -1,13 +1,14 @@
 package com.csse.controller;
 
 import com.csse.domain.GoodsEntity;
+import com.csse.domain.vo.GoodsVO;
 import com.csse.result.RespBean;
 import com.csse.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/goods")
@@ -19,7 +20,18 @@ public class GoodsController {
 
     @PostMapping("/saveGoods")
     public RespBean saveGoods(@RequestBody GoodsEntity goodsEntity){
-        goodsService.save(goodsEntity);
+        goodsService.saveGoods(goodsEntity);
         return RespBean.success();
     }
+
+    @GetMapping("/getGoodsList")
+    public RespBean getGoodsList() {
+        return RespBean.success(goodsService.selectGoodsList());
+    }
+    @GetMapping("/getGoodsInfoById")
+    public RespBean getGoodsInfo(Long id){
+        GoodsEntity goodsEntity=goodsService.getGoodsInfoById(id);
+        return RespBean.success(goodsEntity);
+    }
+
 }

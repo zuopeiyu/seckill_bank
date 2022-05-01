@@ -68,10 +68,14 @@ public class GoodsEntity implements Serializable {
     /**
      * 秒杀开始时间
      */
-    private Date goodStartTime;
+    private Date goodsStartTime;
 
     /**
      * 秒杀结束时间
      */
-    private Date goodEndTime;
+    private Date goodsEndTime;
+    /**
+     * 商品总数
+     */
+    private Integer goodsCount;
 }

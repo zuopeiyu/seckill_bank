@@ -20,10 +20,13 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GoodsVO {
-  private Long goodsId;
+  private Long id;
 	private BigDecimal goodsPrice;
-	private Integer goodStock;
+	private Integer goodsStock;
 	private Date goodsStartTime;
 	private Date goodsEndTime;
 	//图片路径
+	private String goodsImg;
+	private Integer goodsCount;
+
 }
