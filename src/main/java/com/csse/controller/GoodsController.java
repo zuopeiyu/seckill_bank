@@ -28,6 +28,9 @@ public class GoodsController {
 
     @GetMapping("/getGoodsList")
     public RespBean getGoodsList() {
+        int count=0;
+        System.out.println(count+++"-------------------------------------------------------------------------------------");
+        System.out.println();
         return RespBean.success(goodsService.selectGoodsList());
     }
 

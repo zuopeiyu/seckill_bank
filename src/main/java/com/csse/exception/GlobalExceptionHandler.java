@@ -5,12 +5,13 @@ import com.csse.result.RespBean;
 import com.csse.result.RespBeanEnum;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class  GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public RespBean ExceptionHandler(Exception e) {
